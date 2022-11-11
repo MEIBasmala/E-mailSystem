@@ -34,8 +34,8 @@ public:
     bool receive();
     bool check();
     void resend(); // void ? bool ?
-    std::queue<email> mainQueue;
-    std::queue<email> copyQueue;
+    static std::queue<email> mainQueue;
+    static std::queue<email> copyQueue;
     ~email();
  
 
