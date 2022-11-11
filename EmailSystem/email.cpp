@@ -22,15 +22,22 @@ bool email::check(){ //utility fun ??
 
 
 }
-void email::send(const email &address) //utility fun ??
+bool email::send(user arr[10],const email & emailToSend) //utility fun ??
 {
     //input address of destination and try to send
-    address.receiver;
-    
-
+    //address.receiver;
+    for(int i=0;i<10;i++)
+    {
+       if (arr[i].Id==emailToSend.Id)
+       {
+           arr[i].mailbox.push(emailToSend);
+           return true;
+       }
+    }
+    return false;
 
 }
-void email::process(const email &)
+void email::process(user arr[10],const email &)
 {
     // dequeue one element from queue and send then check
     // use send and check function
