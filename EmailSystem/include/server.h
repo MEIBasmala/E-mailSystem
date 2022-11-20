@@ -2,7 +2,7 @@
 #define __SERVER_H__
 #include "email.h"
 #include "vector"
-
+#include<queue>
 
 class Server
 {
