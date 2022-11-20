@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <stack>
-#include <queue>
+
 
 
 class email;
@@ -30,7 +30,8 @@ public:
     email( const user &s,const user &r  , std::string && msg);
     void set_sender(const user &newsender);
     void set_receiver(const user &newreceiver);
-    
+    user get_sender() const ;
+    user get_receiver() const ;
     ~email(){};
 
 
