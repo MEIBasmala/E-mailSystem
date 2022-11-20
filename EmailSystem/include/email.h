@@ -30,6 +30,7 @@ public:
     email( const user &s,const user &r  , std::string && msg);
     void set_sender(const user &newsender);
     void set_receiver(const user &newreceiver);
+    void set_text(std::string);
     user get_sender() const ;
     user get_receiver() const ;
     ~email(){};
