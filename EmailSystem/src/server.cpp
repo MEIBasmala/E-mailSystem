@@ -1,27 +1,38 @@
 #include"server.h"
-using namespace std;
-Server::Server(vector<user> IDs)
+
+
+Server::Server()
 {
-  data_base=(std::move(IDs));
+    CreateDataBase();
 }
-void Server::sign_up(const user& newuser)
+bool Server::sign_up(const user &newuser)
 {
-    data_base.push_back(newuser);
+    if (check(newuser))
+    {
+        DataBase.push_back(newuser);
+        return true;
+    }
+
+    else
+    {
+        std::cout << "USER ALREADY EXISTS !! " << std::endl;
+        return false;
+    }
 }
-//put the email in mainqueue for processing
-void Server::send_to_server(const email& mail)
+// put the email in mainqueue for processing
+void Server::send_to_server(const email &mail)
 {
-  mainQueue.push(mail);
-  process();
+    mainQueue.push(mail);
+    process();
 }
 
 bool Server::send(email &mail)
 {
     // input address of destination and try to send
-    for (int i = 0; i <data_base.size(); i++)
+    for (int i = 0; i < DataBase.size(); i++)
     {
-    // if it's sent return true
-        if (data_base[i].id == mail.get_receiver().id)
+        // if it's sent return true
+        if (DataBase[i].id == mail.get_receiver().id)
         {
             receive(mail);
             return true;
@@ -35,38 +46,38 @@ bool Server::send(email &mail)
 
 void Server::process()
 {
-  // eroor email to send it to the email sender in case his email can not be sent
-    string error_massege="Your email did note reach the destination, please check the receiver account. ";
+    // error email to send it to the email sender in case his email can not be sent
+    std::string error_massege = "Your email did note reach the destination, please check the receiver account. ";
     email ERROE_EMAIL;
+
     // use send function
-    for (int i = 0; i < mainQueue.size(); i++){
-      // dequeue one element from queue and send then check
-      email temp = mainQueue.front();
-      send(temp);
-      mainQueue.pop();
+    for (int i = 0; i < mainQueue.size(); i++)
+    {
+        // dequeue one element from queue and send then check
+        email temp = mainQueue.front();
+        send(temp);
+        mainQueue.pop();
     }
     // if main queue empty, go to  process emails in copy queue
 
-       for (int j = 0; j < copyQueue.size(); j++)
+    for (int j = 0; j < copyQueue.size(); j++)
     {
         email temp = copyQueue.front();
-        if(resend(temp))
+        if (resend(temp))
         {
         }
         else
         {
-          ERROE_EMAIL.set_receiver(temp.get_sender());
-          ERROE_EMAIL.set_text(error_massege);
-          send(ERROE_EMAIL);
+            ERROE_EMAIL.set_receiver(temp.get_sender());
+            ERROE_EMAIL.set_text(error_massege);
+            send(ERROE_EMAIL);
         }
 
         copyQueue.pop();
     }
-
-
 }
 
-void Server::receive( email &mail)
+void Server::receive(email &mail)
 {
     mail.get_receiver().mailBox.push(mail);
 }
@@ -74,9 +85,38 @@ void Server::receive( email &mail)
 bool Server::resend(email &mail)
 {
     for (int i = 0; i < 3; i++)
-        {
-            if (send(mail))
-               return true;
-        }
-  return false;
+    {
+        if (send(mail))
+            return true;
+    }
+    return false;
+}
+
+void Server::CreateDataBase()
+{
+
+    std::fstream FF;
+    FF.open("DataBase.txt");
+
+    for (int i = 0; i < 1500; i++)
+    {
+        user temp;
+        FF >> temp.name;
+        FF >> temp.id;
+        DataBase.push_back(temp);
+    }
+}
+
+// Check if the user already exists in the DataBase;
+
+bool Server::check(user USER)
+{
+
+    for (int i = 0; i < DataBase.size(); i++)
+    {
+        DataBase[i].id == USER.id;
+        return true;
+    }
+
+    return false;
 }
