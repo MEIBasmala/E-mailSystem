@@ -29,3 +29,11 @@ void email::set_receiver(const user &newreceiver)
 {
     this->receiver=newreceiver;
 }
+user get_sender() const 
+{
+    return this->sender;
+}
+user get_receiver() const 
+{
+    return this->receiver;
+}
