@@ -6,55 +6,56 @@ email::email()
 }
 email::email(const user &s, const user &r, const std::string &msg)
 {
-    this->sender = s;
-    this->receiver = r;
-    this->text= msg;
+    sender = s;
+    receiver = r;
+    text = msg;
 };
 
 email::email(const user &s, const user &r, std::string &&msg)
 {
-    this->sender = s;
-    this->receiver = r;
-    this->text = std::move(msg);
-
+    sender = s;
+    receiver = r;
+    text = std::move(msg);
 };
 
 void email::set_sender(const user &newsender)
 {
-    this->sender=newsender;
+    sender = newsender;
 }
 void email::set_receiver(const user &newreceiver)
 {
-    this->receiver=newreceiver;
+    receiver = newreceiver;
 }
 user email::get_sender() const
 {
-    return this->sender;
+    return sender;
 }
 user email::get_receiver() const
 {
-    return this->receiver;
+    return receiver;
 }
 void email::set_text(std::string message)
 {
-    this->text=message;
+    text = message;
 }
 std::string email::get_sender_name() const
 {
-  return this->get_sender().name;
+    return get_sender().name;
 }
 std::string email::get_receiver_name() const
 {
-  return this->get_receiver().name;
+    return get_receiver().name;
 }
 
-std::string email::get_text( )
+std::string email::get_text()
 {
-    return this->text;
+    return "    " + text;
 }
 void email::print()
 {
-    std::cout<<"From : "<<this->get_sender_name()<<"\n";
-    std::cout<<"To : "<<this->get_receiver_name()<<"\n";
-    std::cout<<"\n"<<get_text()<<"\n";
+    std::cout << "From : " << get_sender_name();
+    std::cout << "To : " << get_receiver_name();
+    std::cout << "\n-----------------------------------------------------n";
+    std::cout << get_text() << std::endl;
+    std::cout << "\n-----------------------------------------------------n";
 }
