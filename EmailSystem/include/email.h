@@ -13,7 +13,15 @@ struct user
     int id;
     std::string name;
     std::stack<email> mailBox;
-
+    
+    void print_mail_box()
+    {
+       for(int i=0;i<mailBox.size();i++){
+        cout<<"\n----------------------------------------------------------------------\n";
+        
+            
+       }
+    }
 };
 
 class email{
@@ -31,8 +39,12 @@ public:
     void set_sender(const user &newsender);
     void set_receiver(const user &newreceiver);
     void set_text(std::string);
+    std::string get_text(std::string);
     user get_sender() const ;
     user get_receiver() const ;
+    std::string get_sender_name() const ;
+    std::string get_receiver_name() const ;
+    void print();
     ~email(){};
 
 
