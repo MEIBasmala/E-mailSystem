@@ -1,5 +1,6 @@
 #include "email.h"
 
+
 email::email()
 {
 }
@@ -46,14 +47,14 @@ std::string email::get_receiver_name() const
 {
   return this->get_receiver().name;
 }
+
+std::string email::get_text( )
+{
+    return this->text;
+}
 void email::print()
 {
     std::cout<<"From : "<<this->get_sender_name()<<"\n";
     std::cout<<"To : "<<this->get_receiver_name()<<"\n";
     std::cout<<"\n"<<get_text()<<"\n";
-}
-
-std::string email::get_text(std::string)
-{
-    return this->text;
 }
