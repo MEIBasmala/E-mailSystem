@@ -5,12 +5,16 @@ Server::Server()
 }
 bool Server::sign_up(const user &newuser)
 {
-    if (!check(newuser))
-    {
-        DataBase.push_back(newuser);
-        return true;
-    }
+    DataBase.push_back(newuser);
 
+    std::fstream FF;
+    FF.open("DataBase.txt", std::ios::app);
+    FF << "\n" << newuser.name << " " ;
+    FF << newuser.id ;
+    DataBase.push_back(newuser);
+    FF.close();
+      return true;
+}
     else
     {
         std::cout << "USER ALREADY EXISTS !! " << std::endl;
