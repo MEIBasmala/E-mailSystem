@@ -1,31 +1,32 @@
 #ifndef __SERVER_H__
 #define __SERVER_H__
 #include "email.h"
-#include "vector"
+#include <vector>
 #include<queue>
 
 class Server
 {
 
 public:
-    
-    server(vector<int>);
+
+    Server(std::vector<user> ids);
     //construvter for the BST
-    server();
+    //Server();
     //constructer for the AVL
-    server();
-    bool send(email &mail);
+    //Server();
+    void send_to_server(const email& mail);
     void process();
-    void receive(email &mail);
-    
+    void sign_up(const user& newuser);
 
 
 private:
-  vector<int> data_base;  
+  std::vector<user> data_base;
   std::queue<email> mainQueue;
   std::queue<email> copyQueue;
-  bool resend();
+  bool resend(email &mail);
+  bool send(email &mail);
+  void receive(email &mail);
 
+};
 
-
-}
+#endif
