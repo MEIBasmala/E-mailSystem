@@ -1,17 +1,27 @@
 #include"server.h"
-
-server(vector<int> IDs)
+using namespace std;
+Server::Server(vector<user> IDs)
 {
-  data_base=IDs;
+  data_base=(std::move(IDs));
+}
+void Server::sign_up(const user& newuser)
+{
+    data_base.push_back(newuser);
+}
+//put the email in mainqueue for processing
+void Server::send_to_server(const email& mail)
+{
+  mainQueue.push(mail);
+  process();
 }
 
-bool server::send(email &mail)
+bool Server::send(email &mail)
 {
     // input address of destination and try to send
     for (int i = 0; i <data_base.size(); i++)
     {
     // if it's sent return true
-        if (data_base[i] == mail.receiver.id)
+        if (data_base[i].id == mail.get_receiver().id)
         {
             receive(mail);
             return true;
@@ -23,20 +33,20 @@ bool server::send(email &mail)
     return false;
 }
 
-void server::process()
-{  
+void Server::process()
+{
   // eroor email to send it to the email sender in case his email can not be sent
-    string error_massege="Your email did note reach the destination, please check the receiver account. "
-    email ERROE_EMAIL(,, error_massege); 
+    string error_massege="Your email did note reach the destination, please check the receiver account. ";
+    email ERROE_EMAIL;
     // use send function
     for (int i = 0; i < mainQueue.size(); i++){
       // dequeue one element from queue and send then check
       email temp = mainQueue.front();
-      send(mail );
+      send(temp);
       mainQueue.pop();
     }
-    // if initial queue empty, go to resend function to proccess emails in copyqueue
-    
+    // if main queue empty, go to  process emails in copy queue
+
        for (int j = 0; j < copyQueue.size(); j++)
     {
         email temp = copyQueue.front();
@@ -44,23 +54,24 @@ void server::process()
         {
         }
         else
-        { 
+        {
           ERROE_EMAIL.set_receiver(temp.get_sender());
+          ERROE_EMAIL.set_text(error_massege);
           send(ERROE_EMAIL);
         }
-         
-        copyQueue.pop();  
+
+        copyQueue.pop();
     }
-  
-  
+
+
 }
 
-void server::receive( email &mail)
+void Server::receive( email &mail)
 {
-    mail.receiver.mailBox.push(mail);
+    mail.get_receiver().mailBox.push(mail);
 }
 
-bool server::resend(email &mail)
+bool Server::resend(email &mail)
 {
     for (int i = 0; i < 3; i++)
         {
