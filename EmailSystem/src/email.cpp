@@ -1,7 +1,6 @@
 #include "email.h"
 
-std::queue<email> mainQueue;
-std::queue<email> copyQueue;
+
 
 email::email()
 {
