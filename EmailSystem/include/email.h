@@ -30,12 +30,7 @@ public:
     email( const user &s,const user &r  , std::string && msg);
     bool send(user USER,email &mail);
     //bool send(user USER, email &&emailToSend);
-    void process( email &);
-    void receive(email &mail);
-    void resend(); // void ? bool ?
     ///we need a function that generate a percentage of probability of sending the mail
-
-
     ~email(){};
 
 
