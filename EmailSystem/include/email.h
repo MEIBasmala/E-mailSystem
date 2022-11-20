@@ -28,9 +28,9 @@ public:
     email();
     email( const user &s,const user &r ,const std::string & msg);
     email( const user &s,const user &r  , std::string && msg);
-    //bool send(user USER,email &mail);
-    //bool send(user USER, email &&emailToSend);
-    ///we need a function that generate a percentage of probability of sending the mail
+    void set_sender(const user &newsender);
+    void set_receiver(const user &newreceiver);
+    
     ~email(){};
 
 
