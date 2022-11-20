@@ -44,9 +44,11 @@ void server::process()
         {
         }
         else
-        { ERROE_EMAIL.receiver=temp.sender;
+        { 
+          ERROE_EMAIL.set_receiver(temp.get_sender());
           send(ERROE_EMAIL);
         }
+         
         copyQueue.pop();  
     }
   
