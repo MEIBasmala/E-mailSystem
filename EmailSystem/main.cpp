@@ -1,26 +1,12 @@
 #include <iostream>
 #include "email.h"
+#include "server.h"
 #include"time.h"
 #include <vector>
 
 using std::cin;
 using std::cout;
 using std::vector;
-//ask the user if he want to send a mail to an existed user or  to new one(add the new one to the data base then send)
-
-/*bool check(vector<user> vect, user USER)
-{
-
-    for (int i = 0; i < vect.size(); i++)
-    {
-        vect[i].id == USER.id;
-        return true;
-    }
-
-    return false;
-};
-*/
-
 
 int main()
 {
@@ -30,23 +16,22 @@ int main()
     std::vector<user> DataBase;
     for(int i=0; i< BaseSize; i++ ){
         user temp;
-        temp.id= i*i;
+        temp.id= rand();
         DataBase.push_back(temp);
     }
 
+    Server Email_server(DataBase);
 
     bool BOOL = true;
     int input;
-    vector<user> Users;
-
     while (BOOL)
     {
 
-        std::cout << "WHAT DO U WANNA DO ?";
-        std::cout << " [ 1 ] - SEND AN EMAIL";
-        std::cout << " [ 2 ] - SIGN UP " ;
-        std::cout << " [ 3 ] - SHUT DOWN SERVER";
-
+        std::cout << "WHAT DO U WANNA DO ?\n";
+        std::cout << " [ 1 ] -> SEND AN EMAIL\n";
+        std::cout << " [ 2 ] -> SIGN UP\n" ;
+        std::cout << " [ 3 ] -> SHUT DOWN SERVER\n";
+        std::cout<<"Remark : You have to sign up to benefit from our services.\n ";
         std::cin >> input;
 
         if (input == 1)
@@ -69,8 +54,8 @@ int main()
             std::cout << "ENTER UR TEXT";
             getline(std::cin , txt);
 
-            email mail(sender, receiver, txt);
-            //send here
+            email new_mail(sender, receiver, txt);
+            Email_server.send_to_server(new_mail);
 
         }
 
@@ -83,15 +68,18 @@ int main()
             std::cout << "ENTER UR ID";
             std::cin >> NewUser.id;
 
-            DataBase.push_back(NewUser);
+            Email_server.sign_up(NewUser);
 
 
 }
         if (input == 3)
             BOOL = false;
+
+
+        system("cls");
     }
 
-    cout << "THANK U FOR USING OUR SERVICES, SEE YA!! ";
+    cout << "THANK YOU FOR USING OUR SERVICES, SEE YA!! ";
 
     return 0;
 }
