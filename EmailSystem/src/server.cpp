@@ -1,13 +1,11 @@
 #include"server.h"
-
-
 Server::Server()
 {
     CreateDataBase();
 }
 bool Server::sign_up(const user &newuser)
 {
-    if (check(newuser))
+    if (!check(newuser))
     {
         DataBase.push_back(newuser);
         return true;
@@ -20,32 +18,43 @@ bool Server::sign_up(const user &newuser)
     }
 }
 // put the email in mainqueue for processing
-void Server::send_to_server(const email &mail)
+bool Server::send_to_server(const email &mail)
 {
-    mainQueue.push(mail);
-    process();
+    if (check(mail.get_sender()))
+    {
+        std::cout << "\nAdded to the waiting list . . .\n";
+        mainQueue.push(mail);
+        return true;
+    }
+
+    else
+    {
+        std::cout << "\nSIGN UP " ;
+        return false;
+    }
 }
 
 bool Server::send(email &mail)
 {
+    std::cout << "\nSending Request . . .\n";
+
     // input address of destination and try to send
     for (int i = 0; i < DataBase.size(); i++)
     {
         // if it's sent return true
         if (DataBase[i].id == mail.get_receiver().id)
         {
-            receive(mail);
-            return true;
+            return receive(mail);
         }
     }
 
-    // if it's not sent put it on anothe queue " copyQueue" and return false
-    copyQueue.push(mail);
+    copyQueue.push(mail); // if it's not sent put it on anothe queue " copyQueue" and return false
     return false;
 }
 
 void Server::process()
 {
+    std::cout << "\nProcessing . . .\n";
     // error email to send it to the email sender in case his email can not be sent
     std::string error_massege = "Your email did note reach the destination, please check the receiver account. ";
     email ERROE_EMAIL;
@@ -63,10 +72,7 @@ void Server::process()
     for (int j = 0; j < copyQueue.size(); j++)
     {
         email temp = copyQueue.front();
-        if (resend(temp))
-        {
-        }
-        else
+        if (!resend(temp))
         {
             ERROE_EMAIL.set_receiver(temp.get_sender());
             ERROE_EMAIL.set_text(error_massege);
@@ -77,18 +83,26 @@ void Server::process()
     }
 }
 
-void Server::receive(email &mail)
+bool Server::receive(email &mail)
 {
+    std::cout << "\nRecieving Request . . .\n";
     mail.get_receiver().mailBox.push(mail);
+    if (mail.get_receiver().mailBox.size() != 0)
+        return true;
+
+    return false;
 }
 
 bool Server::resend(email &mail)
 {
+    std::cout << "\nOOPS !! Unexpected error !!\nResending Request\n";
     for (int i = 0; i < 3; i++)
     {
         if (send(mail))
             return true;
     }
+
+    std::cout << "\nNOT SENT\n";
     return false;
 }
 
