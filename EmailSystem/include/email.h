@@ -5,8 +5,7 @@
 #include <stack>
 
 
-
-class email;
+ class email;
 
 struct user
 {
@@ -14,17 +13,30 @@ struct user
     std::string name;
     std::stack<email> mailBox;
 
-    
     void print_mail_box()
     {
-        for (int i = 0; i < mailBox.size(); i++)
+        std::cout << "\nDisplaying Your MailBox . . . \n";
+        if (mailBox.size() == 0)
         {
-            std::cout << "From "  << mailBox.top().get_sender_name() << std::endl;
-            std::cout << "\n********************************************\n";
-            std::cout << mailBox.top().get_text() << std::endl;
-            std::cout << "\n********************************************\n";
+            std::cout << "\n--------------------------------------------\n";
+            std::cout << "\nYour MailBox is empty !!\n";
+            std::cout << "\n--------------------------------------------\n";
+        }
+        else
+        {
+            std::cout << "\n***************************************************\n";
+            for (int i = 0; i < mailBox.size(); i++)
+            {
+                std::cout << "\n--------------------------------------------\n";
+                //mailBox.top().print();
+                mailBox.pop();
+                std::cout << "\n--------------------------------------------\n";
+            }
         }
     }
+
+
+
 };
 
 class email
@@ -50,8 +62,6 @@ public:
     void print();
     ~email(){};
 };
-
-
 
 
 #endif // __EMAIL_H__
