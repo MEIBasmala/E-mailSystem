@@ -8,25 +8,24 @@ class Server
 {
 
 public:
-
-    Server(std::vector<user> ids);
-    //construvter for the BST
-    //Server();
-    //constructer for the AVL
-    //Server();
-    void send_to_server(const email& mail);
+    Server();
+    // constructor for the BST
+    // Server();
+    // constructor for the AVL
+    // Server();
+    void send_to_server(const email &mail);
     void process();
-    void sign_up(const user& newuser);
-
+    bool sign_up(const user &newuser);
+    bool check(user USER);
 
 private:
-  std::vector<user> data_base;
-  std::queue<email> mainQueue;
-  std::queue<email> copyQueue;
-  bool resend(email &mail);
-  bool send(email &mail);
-  void receive(email &mail);
-
+    std::vector<user> DataBase;
+    std::queue<email> mainQueue;
+    std::queue<email> copyQueue;
+    bool resend(email &mail);
+    bool send(email &mail);
+    void receive(email &mail);
+    void CreateDataBase();
 };
 
 #endif
