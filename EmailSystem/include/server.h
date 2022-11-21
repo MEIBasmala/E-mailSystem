@@ -12,7 +12,7 @@ public:
     bool send_to_server(const email &mail);
     void process();
     bool sign_up(const user &newuser);
-    void CreateDataBase();
+    
 
 
 private:
@@ -23,6 +23,7 @@ private:
     bool send(email &mail);
     bool receive(email &mail);
     bool check(user USER);
+    void CreateDataBase();
 };
 
 #endif
