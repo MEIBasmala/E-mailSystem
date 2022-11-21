@@ -97,7 +97,7 @@ int main()
                 std::cout << "/nConnection : "  << NewUser.connection ;
                 std::cout << "Signed Up Successfully !! \nYou'll be redirected to our services center !!!" << std::endl;
         }
-        else if(input == 3)
+         if(input == 3)
         {
             EmailServer.process();
         }
@@ -109,3 +109,23 @@ int main()
 
     return 0;
 }
+
+
+auto start=std::chrono::steady_clock::now();
+            EmailServer.process();
+            auto end=std::chrono::steady_clock::now();
+
+            std::cout<<"The average time for the operation send email using vector is: "<<std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count()<<" nanoseconds"<<"\n";
+
+            start=std::chrono::steady_clock::now();
+            EmailServer_BST.process();
+            end=std::chrono::steady_clock::now();
+
+            std::cout<<"The average time for the operation send email using Binary- Search Tree is: "<<std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count()<<" nanoseconds"<<"\n";
+
+            start=std::chrono::steady_clock::now();
+            EmailServer_AVL.process();
+            end=std::chrono::steady_clock::now();
+
+            std::cout<<"The average time for the operation send email using AVL Tree is: "<<std::chrono::duration_cast<std::chrono::nanoseconds>(end-start).count()<<" nanoseconds"<<"\n";
+
