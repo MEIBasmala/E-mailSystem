@@ -16,7 +16,6 @@ public:
     bool sign_up(const user &newuser);
 
 private:
-    //using a BST of ids for the part B
     BinarySearchTree<int> DataBase_BST;
     std::queue<email> mainQueue;
     std::queue<email> copyQueue;
