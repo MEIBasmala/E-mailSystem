@@ -16,7 +16,6 @@ public:
     bool sign_up(const user &newuser);
 
 private:
-    //using a vector for part A
     AVL<int> DataBase_AVL;
     std::queue<email> mainQueue;
     std::queue<email> copyQueue;
