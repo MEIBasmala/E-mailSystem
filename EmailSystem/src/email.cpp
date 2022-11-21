@@ -49,13 +49,6 @@ std::string email::get_receiver_name() const
 
 std::string email::get_text()
 {
-    return "    " + text;
+    return  text;
 }
-void email::print()
-{
-    std::cout << "From : " << get_sender_name();
-    std::cout << "To : " << get_receiver_name();
-    std::cout << "\n-----------------------------------------------------n";
-    std::cout << get_text() << std::endl;
-    std::cout << "\n-----------------------------------------------------n";
-}
+
