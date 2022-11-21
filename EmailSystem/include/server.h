@@ -9,14 +9,11 @@ class Server
 
 public:
     Server();
-    // constructor for the BST
-    // Server();
-    // constructor for the AVL
-    // Server();
     bool send_to_server(const email &mail);
     void process();
     bool sign_up(const user &newuser);
-    bool check(user USER);
+    void CreateDataBase();
+
 
 private:
     std::vector<user> DataBase;
@@ -25,7 +22,7 @@ private:
     bool resend(email &mail);
     bool send(email &mail);
     bool receive(email &mail);
-    void CreateDataBase();
+    bool check(user USER);
 };
 
 #endif
