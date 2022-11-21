@@ -1,0 +1,68 @@
+# depslib dependency file v1.0
+1669065850 source:c:\users\meitah basmala\downloads\emailsystem\src\email.cpp
+	"email.h"
+	<fstream>
+
+1669065850 c:\users\meitah basmala\downloads\emailsystem\include\email.h
+	<iostream>
+	<string>
+	<stack>
+	<time.h>
+
+1669064755 source:c:\users\meitah basmala\downloads\emailsystem\main.cpp
+	<iostream>
+	"email.h"
+	"server.h"
+	<time.h>
+	<vector>
+	"server_AVL.h"
+	"server_BST.h"
+	<chrono>
+
+1669065850 c:\users\meitah basmala\downloads\emailsystem\include\server.h
+	"email.h"
+	<vector>
+	<queue>
+
+1669065850 source:c:\users\meitah basmala\downloads\emailsystem\src\server.cpp
+	"server.h"
+	<fstream>
+
+1668960130 source:c:\users\meitah basmala\downloads\emailsystem\src\quadraticprobing.cpp
+
+1668960130 c:\users\meitah basmala\downloads\emailsystem\include\quadraticprobing.h
+	<vector>
+	<algorithm>
+	<functional>
+	<string>
+
+1668989219 source:c:\users\meitah basmala\downloads\emailsystem\src\binarysearchtree.cpp
+
+1669065850 source:c:\users\meitah basmala\downloads\emailsystem\src\server_avl.cpp
+	"server_AVL.h"
+	<fstream>
+
+1669065850 c:\users\meitah basmala\downloads\emailsystem\include\server_avl.h
+	"email.h"
+	"AVLtree.h"
+	<queue>
+
+1669065850 c:\users\meitah basmala\downloads\emailsystem\include\avltree.h
+	<algorithm>
+	<iostream>
+	<chrono>
+
+1669065850 source:c:\users\meitah basmala\downloads\emailsystem\src\server_bst.cpp
+	"BinarySearchTree.h"
+	"server_BST.h"
+	<fstream>
+
+1669065850 c:\users\meitah basmala\downloads\emailsystem\include\binarysearchtree.h
+	<iostream>
+	<chrono>
+
+1669065850 c:\users\meitah basmala\downloads\emailsystem\include\server_bst.h
+	"email.h"
+	"BinarySearchTree.h"
+	<queue>
+
