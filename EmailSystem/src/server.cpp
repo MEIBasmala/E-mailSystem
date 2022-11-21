@@ -1,20 +1,19 @@
 #include"server.h"
+#include<fstream>
 Server::Server()
 {
     CreateDataBase();
 }
 bool Server::sign_up(const user &newuser)
 {
-    DataBase.push_back(newuser);
 
-    std::fstream FF;
-    FF.open("DataBase.txt", std::ios::app);
-    FF << "\n" << newuser.name << " " ;
-    FF << newuser.id ;
-    DataBase.push_back(newuser);
-    FF.close();
-      return true;
-}
+    if (!check(newuser))
+    {
+
+        DataBase.push_back(newuser);
+        return true;
+    }
+
     else
     {
         std::cout << "USER ALREADY EXISTS !! " << std::endl;
@@ -24,23 +23,21 @@ bool Server::sign_up(const user &newuser)
 // put the email in mainqueue for processing
 bool Server::send_to_server(const email &mail)
 {
-    if (check(mail.get_sender()))
+    if (check(mail.get_receiver()))
     {
-        std::cout << "\nAdded to the waiting list . . .\n";
         mainQueue.push(mail);
         return true;
     }
 
     else
     {
-        std::cout << "\nSIGN UP " ;
+        std::cout << "\nOperation can not be done,receiver does not exist.\n" ;
         return false;
     }
 }
 
 bool Server::send(email &mail)
 {
-    std::cout << "\nSending Request . . .\n";
 
     // input address of destination and try to send
     for (int i = 0; i < DataBase.size(); i++)
@@ -52,13 +49,13 @@ bool Server::send(email &mail)
         }
     }
 
-    copyQueue.push(mail); // if it's not sent put it on anothe queue " copyQueue" and return false
+    copyQueue.push(mail); // if it's not sent put it on another queue " copyQueue" and return false
     return false;
 }
 
 void Server::process()
 {
-    std::cout << "\nProcessing . . .\n";
+
     // error email to send it to the email sender in case his email can not be sent
     std::string error_massege = "Your email did note reach the destination, please check the receiver account. ";
     email ERROE_EMAIL;
@@ -89,17 +86,19 @@ void Server::process()
 
 bool Server::receive(email &mail)
 {
+    int size = mail.get_receiver().mailBox.size();
+
     std::cout << "\nRecieving Request . . .\n";
     mail.get_receiver().mailBox.push(mail);
-    if (mail.get_receiver().mailBox.size() != 0)
+
+    if (mail.get_receiver().mailBox.size() > size)
         return true;
 
     return false;
 }
-
 bool Server::resend(email &mail)
 {
-    std::cout << "\nOOPS !! Unexpected error !!\nResending Request\n";
+
     for (int i = 0; i < 3; i++)
     {
         if (send(mail))
@@ -113,7 +112,7 @@ bool Server::resend(email &mail)
 void Server::CreateDataBase()
 {
 
-    std::fstream FF;
+    std::ifstream FF;
     FF.open("DataBase.txt");
 
     for (int i = 0; i < 1500; i++)
@@ -132,9 +131,10 @@ bool Server::check(user USER)
 
     for (int i = 0; i < DataBase.size(); i++)
     {
-        DataBase[i].id == USER.id;
-        return true;
+        if(DataBase[i].id == USER.id)
+           return true;
     }
 
     return false;
 }
+
