@@ -112,14 +112,14 @@ bool Server::resend(email &mail)
 void Server::CreateDataBase()
 {
 
-    std::ifstream FF;
-    FF.open("DataBase.txt");
+    std::ifstream Users_file;
+    Users_file.open("DataBase.txt");
 
     for (int i = 0; i < 1500; i++)
     {
         user temp;
-        FF >> temp.name;
-        FF >> temp.id;
+        Users_file >> temp.name;
+        Users_file >> temp.id;
         DataBase.push_back(temp);
     }
 }
